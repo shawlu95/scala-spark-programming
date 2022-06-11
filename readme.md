@@ -108,6 +108,22 @@ rdd.unpersist()
 * Use Spark session as app entry point, which includes many useful API
 * To get context, use `val sc = spark.sparkContext`
 
+### Spark Streaming
+* `DStream` is the basic abstraction, which is a sequence of RDD
+* consists of small interval called `batch interval` (mini-batch)
+* RDD arrived in the same batch interval are grouped together
+
+```bash
+# start netcat
+nc -lk 9999
+
+# submit spark in another window
+spark-submit \
+  --class LogStreamer \
+  --master "local[2]" \
+  target/scala-2.12/scala-spark-programming_2.12-0.1.0-SNAPSHOT.jar \
+  localhost 9999
+```
 ---
 ## SNAP Google Web Graph
 * Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
