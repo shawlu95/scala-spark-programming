@@ -24,6 +24,16 @@ Advantages over MapReduce
 - data are kept in memory and can be passed to next operator. MapReduce writes to disk at end of each map-reduce task (super-bad ad ML)
 - can do stream-processing (MapReduce only does batch)
 
+Getting started
+```bash
+brew install sbt
+sbt clean package
+spark-submit \
+  --class FlightAnalysis \
+  --master "local[2]" \
+  target/scala-2.12/scala-spark-programming_2.12-0.1.0-SNAPSHOT.jar
+```
+
 ---
 
 ## Resilient Distributed Dataset
@@ -69,3 +79,11 @@ rdd.unpersist()
 
 - cache a small variable to be shared by all nodes
 - node will lookup the broadcast cariable by key
+- immutable
+
+### Accumulator
+
+- shared by all nodes just like broadcast variable
+- not immutable, good for tracking metrics
+- executors can only write to accumulator, cannot read
+- only main/driver program can only read, not write
