@@ -103,6 +103,11 @@ rdd.unpersist()
 - Hash the key of **pair RDD**
 - minimize shuffle, which incur expensive network overhead
 
+### SparkContext vs SparkSession
+* Spark context is instroduced in 1.x. Spark session is introduced in 2.x
+* Use Spark session as app entry point, which includes many useful API
+* To get context, use `val sc = spark.sparkContext`
+
 ---
 ## SNAP Google Web Graph
 * Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
