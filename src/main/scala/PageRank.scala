@@ -1,5 +1,4 @@
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkConf
+import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 
 object PageRank {
   def main(args: Array[String]): Unit = {
@@ -16,7 +15,7 @@ object PageRank {
 
     // create a links RDD with all outgoing links from each page
     // this is used for every iteration, cache improves performance
-    val links = data.groupByKey().cache()
+    val links = data.partitionBy(new HashPartitioner(100)).groupByKey.cache()
 
     var ranks = links.mapValues(v => 1.0)
     for (i <- 1 to 10) {

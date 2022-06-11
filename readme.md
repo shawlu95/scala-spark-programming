@@ -99,6 +99,10 @@ rdd.unpersist()
 - executors can only write to accumulator, cannot read
 - only main/driver program can only read, not write
 
+### Custom Partitioner
+- Hash the key of **pair RDD**
+- minimize shuffle, which incur expensive network overhead
+
 ---
 ## SNAP Google Web Graph
 * Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
