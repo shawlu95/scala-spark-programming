@@ -2,7 +2,7 @@ version := "0.1.0-SNAPSHOT"
 
 scalaVersion := "2.12.15"
 
-name := "scala-demo"
+name := "scala-spark-programming"
 
 val sparkVersion = "3.2.1"
 
