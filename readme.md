@@ -34,6 +34,17 @@ spark-submit \
   target/scala-2.12/scala-spark-programming_2.12-0.1.0-SNAPSHOT.jar
 ```
 
+Cluster management
+* cluster manager: mesos, yarn, or spark standalone
+* **driver** uses a spark context to communicate with the spark cluster manager
+* phase 1 initial setup: 
+  * when program has a processing task e.g. an action such as count() or collect()
+  * cluster manager launches Java processes on **executors**, which register themselves onto driver program
+* phase 2 job run:
+  * an action is received and translated to job
+  * **DAGScheduler** breaks down job into stages, and then tasks
+  * **TaskSetManager** assigns tasks to executors, which updates back to the driver program 
+
 ---
 
 ## Resilient Distributed Dataset
