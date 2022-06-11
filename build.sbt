@@ -8,6 +8,7 @@ val sparkVersion = "3.2.1"
 
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion
+libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion
 libraryDependencies += "joda-time" % "joda-time" % "2.10.14"
 
 lazy val root = (project in file("."))
