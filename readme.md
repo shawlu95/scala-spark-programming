@@ -98,3 +98,9 @@ rdd.unpersist()
 - not immutable, good for tracking metrics
 - executors can only write to accumulator, cannot read
 - only main/driver program can only read, not write
+
+---
+## SNAP Google Web Graph
+* Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
+* Each iteration, a node equally split its page rank to all referenced nodes
+* At the end of each iteration, damp all page rank by 0.85 and add 0.15 to recover the sum
