@@ -3,7 +3,7 @@ import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 object PageRank {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
-      .setAppName("Accumulator Demo")
+      .setAppName("PageRank")
       .setMaster("local[2]")
     val sc = new SparkContext(conf)
 

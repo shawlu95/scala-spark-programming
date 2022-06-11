@@ -3,7 +3,7 @@ import org.apache.spark.sql.{SparkSession}
 object DataFrame {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder()
-      .appName("Accumulator Demo")
+      .appName("SparkSQL Demo")
       .master("local[2]")
       .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
