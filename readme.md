@@ -24,7 +24,8 @@ Advantages over MapReduce
 - data are kept in memory and can be passed to next operator. MapReduce writes to disk at end of each map-reduce task (super-bad ad ML)
 - can do stream-processing (MapReduce only does batch)
 
-Getting started
+Getting started. Download dataset for this repo [here](https://drive.google.com/file/d/14yd2hwGuXQb1nMHgxxGYude8lLzH1qji/view?usp=sharing).
+
 ```bash
 brew install sbt
 sbt clean package
@@ -35,15 +36,16 @@ spark-submit \
 ```
 
 Cluster management
-* cluster manager: mesos, yarn, or spark standalone
-* **driver** uses a spark context to communicate with the spark cluster manager
-* phase 1 initial setup: 
-  * when program has a processing task e.g. an action such as count() or collect()
-  * cluster manager launches Java processes on **executors**, which register themselves onto driver program
-* phase 2 job run:
-  * an action is received and translated to job
-  * **DAGScheduler** breaks down job into stages, and then tasks
-  * **TaskSetManager** assigns tasks to executors, which updates back to the driver program 
+
+- cluster manager: mesos, yarn, or spark standalone
+- **driver** uses a spark context to communicate with the spark cluster manager
+- phase 1 initial setup:
+  - when program has a processing task e.g. an action such as count() or collect()
+  - cluster manager launches Java processes on **executors**, which register themselves onto driver program
+- phase 2 job run:
+  - an action is received and translated to job
+  - **DAGScheduler** breaks down job into stages, and then tasks
+  - **TaskSetManager** assigns tasks to executors, which updates back to the driver program
 
 ---
 
@@ -59,7 +61,7 @@ Cluster management
   - aggregate (action): accepts two RDD and init value, can return the same type as init value
     - Require two function: how to merge accumulator with rdd, how to merge accumulator
     - aggregate is **curried** function (partial func)
-    
+
 ### Persistence
 
 - The entire chain of transform is performed at every action
@@ -86,6 +88,10 @@ rdd.unpersist()
 - `collectAsMap` (action): similar to collect (single RDD)
 - `join`, `left|right outer join`
 
+---
+
+## Spark Note
+
 ### Broadcast
 
 - cache a small variable to be shared by all nodes
@@ -100,18 +106,21 @@ rdd.unpersist()
 - only main/driver program can only read, not write
 
 ### Custom Partitioner
+
 - Hash the key of **pair RDD**
 - minimize shuffle, which incur expensive network overhead
 
 ### SparkContext vs SparkSession
-* Spark context is instroduced in 1.x. Spark session is introduced in 2.x
-* Use Spark session as app entry point, which includes many useful API
-* To get context, use `val sc = spark.sparkContext`
+
+- Spark context is instroduced in 1.x. Spark session is introduced in 2.x
+- Use Spark session as app entry point, which includes many useful API
+- To get context, use `val sc = spark.sparkContext`
 
 ### Spark Streaming
-* `DStream` is the basic abstraction, which is a sequence of RDD
-* consists of small interval called `batch interval` (mini-batch)
-* RDD arrived in the same batch interval are grouped together
+
+- `DStream` is the basic abstraction, which is a sequence of RDD
+- consists of small interval called `batch interval` (mini-batch)
+- RDD arrived in the same batch interval are grouped together
 
 ```bash
 # start netcat
@@ -124,8 +133,11 @@ spark-submit \
   target/scala-2.12/scala-spark-programming_2.12-0.1.0-SNAPSHOT.jar \
   localhost 9999
 ```
+
 ---
+
 ## SNAP Google Web Graph
-* Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
-* Each iteration, a node equally split its page rank to all referenced nodes
-* At the end of each iteration, damp all page rank by 0.85 and add 0.15 to recover the sum
+
+- Download dataset [here](https://snap.stanford.edu/data/web-Google.html)
+- Each iteration, a node equally split its page rank to all referenced nodes
+- At the end of each iteration, damp all page rank by 0.85 and add 0.15 to recover the sum
